@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd">
+    <changeSet id="1732935629984-1" author="ryan.wu">
+        <createTable tableName="route">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="co" type="ENUM('KMB', 'CTB', 'NLB')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bound" type="ENUM('inbound', 'outbound')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="orig_en" type="VARCHAR(255)"/>
+            <column name="orig_tc" type="VARCHAR(255)"/>
+            <column name="dest_en" type="VARCHAR(255)"/>
+            <column name="dest_tc" type="VARCHAR(255)"/>
+            <column name="create_time" type="DATETIME(3)"/>
+            <column name="update_time" type="DATETIME(3)"/>
+        </createTable>
+        <addPrimaryKey tableName="route" columnNames="id, co, bound"/>
+        <addUniqueConstraint tableName="route" columnNames="id, co, bound"/>
+    </changeSet>
+    <changeSet id="1732975033851-1" author="ryan.wu">
+        <createTable tableName="stop">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="co" type="ENUM('KMB', 'CTB', 'NLB')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bound" type="ENUM('inbound', 'outbound')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name_en" type="VARCHAR(255)"/>
+            <column name="name_tc" type="VARCHAR(255)"/>
+            <column name="latitude" type="DOUBLE(10,6)"/>
+            <column name="longitude" type="DOUBLE(10,6)"/>
+            <column name="create_time" type="DATETIME(3)"/>
+            <column name="update_time" type="DATETIME(3)"/>
+        </createTable>
+        <addPrimaryKey tableName="stop" columnNames="id, co, bound"/>
+        <addUniqueConstraint tableName="stop" columnNames="id, co, bound"/>
+    </changeSet>
+    <changeSet id="1732976091545-1" author="ryan.wu">
+        <createTable tableName="route_stop">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="seq" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="route_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="route_co" type="ENUM('KMB', 'CTB', 'NLB')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="route_bound" type="ENUM('inbound', 'outbound')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="stop_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="stop_co" type="ENUM('KMB', 'CTB', 'NLB')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="stop_bound" type="ENUM('inbound', 'outbound')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time" type="DATETIME(3)"/>
+            <column name="update_time" type="DATETIME(3)"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="route_stop" baseColumnNames="route_id, route_co, route_bound"
+                                 constraintName="FK_route_stop_route"
+                                 referencedTableName="route" referencedColumnNames="id, co, bound"
+                                 onDelete="CASCADE" onUpdate="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="route_stop" baseColumnNames="stop_id, stop_co, stop_bound"
+                                 constraintName="FK_route_stop_stop"
+                                 referencedTableName="stop" referencedColumnNames="id, co, bound"
+                                 onDelete="CASCADE" onUpdate="CASCADE"/>
+    </changeSet>
+</databaseChangeLog>
