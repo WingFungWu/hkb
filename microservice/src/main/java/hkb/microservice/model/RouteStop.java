@@ -29,10 +29,10 @@ public class RouteStop {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Stop stop;
 
-    @Column(name = "create_time")
-    private LocalDateTime createTime;
+    @Column(name = "service_type")
+    private String serviceType;
 
-    @Column(name = "update_time")
-    private LocalDateTime updateTime;
+    @Column(name = "last_update_time")
+    private LocalDateTime lastUpdateTime;
 
 }

@@ -1,21 +1,23 @@
 package hkb.microservice.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "route")
 public class Route {
     @EmbeddedId
     private RouteId id;
+
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "orig_en")
     private String origEn;
@@ -29,10 +31,17 @@ public class Route {
     @Column(name = "dest_tc")
     private String destTc;
 
-    @Column(name = "create_time")
-    private LocalDateTime createTime;
+    @Column(name = "last_update_time")
+    private LocalDateTime lastUpdateTime;
 
-    @Column(name = "update_time")
-    private LocalDateTime updateTime;
+    @PrePersist
+    protected void onCreate() {
+        lastUpdateTime = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        lastUpdateTime = LocalDateTime.now();
+    }
 
 }

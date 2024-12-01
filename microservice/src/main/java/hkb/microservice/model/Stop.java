@@ -29,10 +29,7 @@ public class Stop {
     @Column(name = "longitude")
     private Double longitude;
 
-    @Column(name = "create_time")
-    private LocalDateTime createTime;
-
-    @Column(name = "update_time")
-    private LocalDateTime updateTime;
+    @Column(name = "last_update_time")
+    private LocalDateTime lastUpdateTime;
 
 }

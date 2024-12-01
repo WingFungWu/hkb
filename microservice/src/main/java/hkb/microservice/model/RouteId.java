@@ -2,29 +2,30 @@ package hkb.microservice.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.Lob;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.Hibernate;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Embeddable
 public class RouteId implements Serializable {
+    @Serial
     private static final long serialVersionUID = -4597245512072633293L;
     @Column(name = "id", nullable = false)
     private String id;
 
-    @Lob
     @Column(name = "co", nullable = false)
-    private CoType co;
+    private String co;
 
-    @Lob
     @Column(name = "bound", nullable = false)
-    private BoundType bound;
+    private String bound;
 
     @Override
     public boolean equals(Object o) {

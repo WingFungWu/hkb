@@ -2,11 +2,11 @@ package hkb.microservice.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.Lob;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -14,17 +14,16 @@ import java.util.Objects;
 @Setter
 @Embeddable
 public class StopId implements Serializable {
+    @Serial
     private static final long serialVersionUID = -1317569622206739459L;
     @Column(name = "id", nullable = false)
     private String id;
 
-    @Lob
     @Column(name = "co", nullable = false)
-    private CoType co;
+    private String co;
 
-    @Lob
     @Column(name = "bound", nullable = false)
-    private BoundType bound;
+    private String bound;
 
     @Override
     public boolean equals(Object o) {
